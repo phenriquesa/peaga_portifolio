@@ -6,7 +6,7 @@ def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
-        SECRET_KEY=os.urandom(32),
+        SECRET_KEY=os.urandom(64),
         DATABASE=os.path.join(app.instance_path, 'db.sqlite'),
     )
 
@@ -22,13 +22,9 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
-
-    # a simple page that says hello
+# Init DB
     from . import db
     db.init_app(app)
-
-    from . import auth
-    app.register_blueprint(auth.bp)
 
     from . import site
     app.register_blueprint(site.bp)
