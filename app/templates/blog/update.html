@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block header %}
+<h1>{% block title %}Editar "{{ post['title'] }}"{% endblock %}</h1>
+{% endblock %}
+{% block content %}
+<div class="container col-md-3 justify-content-center">
+    <form method="post" class="form-group">
+        <label for="title">Titulo</label>
+        <input name="title" id="title" type="text" class="form-control"
+               value="{{ request.form['title'] or post['title'] }}" required>
+        <br>
+        <label for="body">Mensagem</label>
+        <textarea name="body" class="form-control"
+                  id="body">{{ request.form['body'] or post['body'] }}</textarea>
+        <hr>
+        <input type="submit" class="btn btn-success" value="Enviar">
+        <form action="{{ url_for('blog.delete', id=post['id']) }}" method="post" class="form-group">
+            <input class="btn btn-outline-danger" type="submit" value="Deletar"
+                   onclick=" return confirm('Tem certeza?');">
+        </form>
+    </form>
+</div>
+{% endblock %}

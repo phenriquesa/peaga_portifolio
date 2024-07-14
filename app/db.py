@@ -1,8 +1,13 @@
 import sqlite3
+<<<<<<< HEAD
 
 import click
 from flask import current_app, g
 from flask.cli import with_appcontext
+=======
+import click
+from flask import current_app, g
+>>>>>>> dfcd81a (Atualização de arquivos)
 
 
 def get_db():
@@ -31,7 +36,10 @@ def init_db():
 
 
 @click.command('init-db')
+<<<<<<< HEAD
 @with_appcontext
+=======
+>>>>>>> dfcd81a (Atualização de arquivos)
 def init_db_command():
     """Clear the existing data and create new tables."""
     init_db()

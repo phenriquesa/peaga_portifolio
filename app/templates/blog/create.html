@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block header %}
+  <h1>{% block title %}Novo Post{% endblock %}</h1>
+{% endblock %}
+{% block content %}
+<div class="container col-md-3 justify-content-center">
+  <form method="post" class="form-group">
+    <label for="title">Titulo</label>
+    <input name="title" id="title" type="text" class="form-control" value="{{ request.form['title'] }}" required>
+    <br>
+    <label for="body">Mensagem</label>
+    <textarea name="body" type="text" class="form-control" id="body">{{ request.form['body'] }}</textarea>
+    <hr>
+    <input type="submit" class="btn btn-success" value="Enviar">
+  </form>
+  </div>
+{% endblock %}

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* ================================================================ */
 
 function formatar(mascara, documento){
@@ -20,3 +21,17 @@ function BlockLetters(e){
     }
 };
 /* ================================================================ */
+=======
+    $('#confirmDeleteModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var form = button.closest('form');
+        form.on('submit', function (e) {
+            e.preventDefault();
+        });
+    });
+
+    $('#confirmDeleteModal').on('hidden.bs.modal', function () {
+        var form = $(this).find('form');
+        form.off('submit');
+    });
+>>>>>>> dfcd81a (Atualização de arquivos)

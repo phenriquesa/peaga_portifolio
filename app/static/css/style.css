@@ -8,6 +8,15 @@ body {
     color:rgb(2, 157, 84);
 }
 
+<<<<<<< HEAD
+=======
+nav { flex: auto; margin: 0; }
+nav a { text-decoration: none; padding: 0.25rem 0.5rem; }
+nav ul  { display: flex; list-style: none; margin: 0; padding: 0; }
+nav div ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
+.post .about { color: slategray; font-style: italic; }
+
+>>>>>>> dfcd81a (Atualização de arquivos)
 #logo {
     margin-bottom: 5px;
     margin-top: 0px;
@@ -196,4 +205,17 @@ footer {
     height: 45px;
     text-align: center;
     line-height: 45px;
+<<<<<<< HEAD
 }
+=======
+}
+
+
+$zindex-dropdown:          1000 !default;
+$zindex-sticky:            1020 !default;
+$zindex-fixed:             1030 !default;
+$zindex-modal-backdrop:    1040 !default;
+$zindex-modal:             1050 !default;
+$zindex-popover:           1060 !default;
+$zindex-tooltip:           1070 !default;
+>>>>>>> dfcd81a (Atualização de arquivos)
