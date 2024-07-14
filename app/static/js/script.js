@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* ================================================================ */
 
 function formatar(mascara, documento){
@@ -22,6 +23,8 @@ function BlockLetters(e){
 };
 /* ================================================================ */
 =======
+=======
+>>>>>>> dfcd81a (Atualização de arquivos)
     $('#confirmDeleteModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
         var form = button.closest('form');
@@ -34,4 +37,7 @@ function BlockLetters(e){
         var form = $(this).find('form');
         form.off('submit');
     });
+<<<<<<< HEAD
+>>>>>>> dfcd81a (Atualização de arquivos)
+=======
 >>>>>>> dfcd81a (Atualização de arquivos)

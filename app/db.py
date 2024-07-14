@@ -1,9 +1,14 @@
 import sqlite3
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 import click
 from flask import current_app, g
 from flask.cli import with_appcontext
+=======
+import click
+from flask import current_app, g
+>>>>>>> dfcd81a (Atualização de arquivos)
 =======
 import click
 from flask import current_app, g
@@ -37,7 +42,10 @@ def init_db():
 
 @click.command('init-db')
 <<<<<<< HEAD
+<<<<<<< HEAD
 @with_appcontext
+=======
+>>>>>>> dfcd81a (Atualização de arquivos)
 =======
 >>>>>>> dfcd81a (Atualização de arquivos)
 def init_db_command():

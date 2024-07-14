@@ -9,13 +9,19 @@ body {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> dfcd81a (Atualização de arquivos)
 nav { flex: auto; margin: 0; }
 nav a { text-decoration: none; padding: 0.25rem 0.5rem; }
 nav ul  { display: flex; list-style: none; margin: 0; padding: 0; }
 nav div ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
 .post .about { color: slategray; font-style: italic; }
 
+<<<<<<< HEAD
+>>>>>>> dfcd81a (Atualização de arquivos)
+=======
 >>>>>>> dfcd81a (Atualização de arquivos)
 #logo {
     margin-bottom: 5px;
@@ -206,8 +212,11 @@ footer {
     text-align: center;
     line-height: 45px;
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 =======
+=======
+>>>>>>> dfcd81a (Atualização de arquivos)
 }
 
 
@@ -217,5 +226,9 @@ $zindex-fixed:             1030 !default;
 $zindex-modal-backdrop:    1040 !default;
 $zindex-modal:             1050 !default;
 $zindex-popover:           1060 !default;
+<<<<<<< HEAD
+$zindex-tooltip:           1070 !default;
+>>>>>>> dfcd81a (Atualização de arquivos)
+=======
 $zindex-tooltip:           1070 !default;
 >>>>>>> dfcd81a (Atualização de arquivos)
