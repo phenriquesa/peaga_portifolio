@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Valores de Moedas{% endblock %}
+
+{% block header %}
+<h1>Valores de Moedas</h1>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4 justify-content-center align-items-center">
+    <div class="row">
+        <div class="col-md-6 col-lg-4">
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    REAL (BRL)
+                    <span class="badge bg-primary rounded-pill">R$ {{ rates.BRL }}.00</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Dólar (USD)
+                    <span class="badge bg-secondary rounded-pill">$ {{ rates.USD }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Euro (EUR)
+                    <span class="badge bg-success rounded-pill">€ {{ rates.EUR }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Bitcoin (BTC)
+                    <span class="badge bg-danger rounded-pill">BTC {{ rates.BTC }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Peso Argentino (ARS)
+                    <span class="badge bg-warning rounded-pill">$ {{ rates.ARS }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Dólar Canadense (CAD)
+                    <span class="badge bg-info rounded-pill">$ {{ rates.CAD }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Libra Esterlina (GBP)
+                    <span class="badge bg-dark rounded-pill">£ {{ rates.GBP }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Iene Japonês (JPY)
+                    <span class="badge bg-light text-dark rounded-pill">¥ {{ rates.JPY }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Yuan Chinês (CNY)
+                    <span class="badge bg-secondary rounded-pill">¥ {{ rates.CNY }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Dólar Australiano (AUD)
+                    <span class="badge bg-primary rounded-pill">$ {{ rates.AUD }}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

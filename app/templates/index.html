@@ -1,20 +1,23 @@
 {% extends 'base.html' %}
+
+{% block title %}HOME{% endblock %}
+
 {% block header %}
-<h1>{% block title %}HOME{% endblock %}</h1>
+<h1>HOME</h1>
 {% endblock %}
+
 {% block content %}
 <br>
 <article class="container col-md-4 justify-content-center">
     <main>
         {% for post in posts %}
-        <article class="container-fluid">
+        <article class="container-fluid mb-4">
             <header>
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">{{ post['title'] }}</h5>
                         <p class="card-text">{{ post['body'] }}</p>
-                        <p class="card-text small">por {{ post['username'] }} em {{ post['created'].strftime('%d/%m/%Y')
-                            }}</p>
+                        <p class="card-text small">por {{ post['username'] }} em {{ post['created'].strftime('%d/%m/%Y') }}</p>
                     </div>
                 </div>
             </header>
@@ -24,7 +27,7 @@
         {% endif %}
         {% endfor %}
         <br>
-        <article class="container-fluid alert alert-success">
+        <article class="container-fluid alert alert-info">
             <p>Localização: {{user_location}}</p>
             {% if weather_data %}
             <p>Cidade: {{weather_data.name}}</p>
@@ -36,25 +39,12 @@
         </article>
     </main>
 </article>
+{% endblock %}
+
+{% block footer %}
 <footer>
     <div class="container-fluid justify-content-center">
-        <div class="row">
-            <div class="col">
-                <a href="https://dolarhoje.com/" class="dolar-hoje-button" data-currency="dolar"
-                   title="Dólar">Dólar</a>
-                <script async src="//dolarhoje-widgets.s3.amazonaws.com/button.js"></script>
-            </div>
-            <div class="col">
-                <a href="https://dolarhoje.com/euro-hoje/" class="dolar-hoje-button" data-currency="euro"
-                   title="Euro">Euro</a>
-                <script async src="//dolarhoje-widgets.s3.amazonaws.com/button.js" charset="utf-8"></script>
-            </div>
-            <div class="col">
-                <a href="https://dolarhoje.com/ouro-hoje/" class="dolar-hoje-button" data-currency="ouro"
-                   title="Ouro">Ouro</a>
-                <script async src="//dolarhoje-widgets.s3.amazonaws.com/button.js" charset="utf-8"></script>
-            </div>
-        </div>
+
     </div>
 </footer>
 {% endblock %}

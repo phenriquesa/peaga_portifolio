@@ -1,23 +1,29 @@
 {% extends 'base.html' %}
+
+{% block title %}Editar "{{ post['title'] }}"{% endblock %}
+
 {% block header %}
-<h1>{% block title %}Editar "{{ post['title'] }}"{% endblock %}</h1>
+<h1>Editar "{{ post['title'] }}"</h1>
 {% endblock %}
+
 {% block content %}
-<div class="container col-md-3 justify-content-center">
-    <form method="post" class="form-group">
-        <label for="title">Titulo</label>
-        <input name="title" id="title" type="text" class="form-control"
-               value="{{ request.form['title'] or post['title'] }}" required>
-        <br>
-        <label for="body">Mensagem</label>
-        <textarea name="body" class="form-control"
-                  id="body">{{ request.form['body'] or post['body'] }}</textarea>
-        <hr>
-        <input type="submit" class="btn btn-success" value="Enviar">
-        <form action="{{ url_for('blog.delete', id=post['id']) }}" method="post" class="form-group">
-            <input class="btn btn-outline-danger" type="submit" value="Deletar"
-                   onclick=" return confirm('Tem certeza?');">
-        </form>
-    </form>
+<div class="container col-md-6 col-lg-4 mt-4">
+  <form method="post" class="form-group">
+    <div class="mb-3">
+      <label for="title" class="form-label">Título</label>
+      <input name="title" id="title" type="text" class="form-control"
+             value="{{ request.form.get('title', post['title']) }}" required>
+    </div>
+    <div class="mb-3">
+      <label for="body" class="form-label">Mensagem</label>
+      <textarea name="body" class="form-control" id="body" rows="5" required>{{ request.form.get('body', post['body']) }}</textarea>
+    </div>
+    <div class="d-flex justify-content-between">
+      <input type="submit" class="btn btn-success" value="Atualizar">
+      <form action="{{ url_for('blog.delete', id=post['id']) }}" method="post">
+        <input class="btn btn-outline-danger" type="submit" value="Deletar" onclick="return confirm('Tem certeza?');">
+      </form>
+    </div>
+  </form>
 </div>
 {% endblock %}

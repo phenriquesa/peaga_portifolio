@@ -1,14 +1,18 @@
 {% extends 'base.html' %}
+
+{% block title %}Notícias{% endblock %}
+
 {% block header %}
-<h1>{% block title %} Notícias {% endblock %}</h1>
+<h1>Notícias</h1>
 {% endblock %}
+
 {% block content %}
 <div class="container">
-    <h1 class="mt-5">Notícias</h1>
+    <h1 class="mt-5 text-center">Notícias</h1>
     <ul class="list-group mt-4">
         {% for noticia in noticias %}
-        <li class="list-group-item">
-            <h2><a href="{{ url_for('exibir_noticia', noticia_tag=noticia.title) }}">{{ noticia.title }}</a></h2>
+        <li class="list-group-item mb-3">
+            <h2 class="h5"><a href="{{ url_for('exibir_noticia', noticia_tag=noticia.title) }}" class="text-dark">{{ noticia.title }}</a></h2>
             <p class="blockquote text-left">{{ noticia.content|truncate(250) }}</p>
             <small class="text-muted">Postado: {{ noticia.published }}</small>
         </li>

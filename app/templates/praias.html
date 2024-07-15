@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Praias Limpas do Brasil{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Praias Limpas do Brasil</h1>
+    {% for estado, praias in praias.items() %}
+    <h2>{{ estado }}</h2>
+    <ul class="list-group">
+        {% for praia in praias %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <strong>{{ praia.nome }}</strong>
+                <br>
+                <small>{{ praia.localizacao }}</small>
+            </div>
+            <span class="badge {% if praia.status == 'Própria' %}bg-success{% else %}bg-danger{% endif %} badge-pill">
+                {{ praia.status }}
+            </span>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endfor %}
+</div>
+{% endblock %}

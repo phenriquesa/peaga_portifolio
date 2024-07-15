@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Bloco de Notas{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Bloco de Notas</h1>
+    <form method="post">
+        <div class="mb-3">
+            <label for="note" class="form-label">Sua Nota</label>
+            <textarea class="form-control" id="note" name="note" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="alert alert-success mt-3">
+        {% for message in messages %}
+        {{ message }}
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <h2>Minhas Notas</h2>
+    <ul class="list-group mt-3">
+        {% for note in notes %}
+        <li class="list-group-item">
+            {{ note.content }}
+            <a href="{{ url_for('download_note', note_id=note.id) }}" class="btn btn-info btn-sm float-end ms-2">Baixar</a>
+            <a href="{{ url_for('delete_note', note_id=note.id) }}" class="btn btn-danger btn-sm float-end">Excluir</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

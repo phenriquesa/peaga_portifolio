@@ -1,28 +1,46 @@
 {% extends 'base.html' %}
+
+{% block title %}Projetos{% endblock %}
+
 {% block header %}
-<h1>{% block title %}Projetos{% endblock %}</h1>
+<h1>Projetos</h1>
 {% endblock %}
+
 {% block content %}
-<article class="container col-md-3 justify-content-center">
-    <header>
-        <br>
-        <div class="container-fluid">
-            <h3></h3>
-            <h3 class=""></h3>
+<div class="container">
+    <header class="mt-4 mb-5">
+        <h2>Videos</h2>
+        <div class="embed-responsive embed-responsive-16by9 mb-4">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/gNoTUQ1XtBk?si=HeDBbecSt-1Nbgsx"
+                    title="Música de Crime e Mistério | Trilha Sonora para Histórias Intrigantes" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="embed-responsive embed-responsive-16by9 mb-4">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/EnKdSzZB_iU?si=nMaO-0W4fkVYdVhE"
+                    title="Música para Estudar | Inspiração e Beleza" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="embed-responsive embed-responsive-16by9 mb-4">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/CuidORKv72Q?si=c2XI5-UBwHX6EFSF"
+                    title="Beleza e Inspiração: Mulheres Fortes e Determinadas" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
     </header>
-    <main>
-        <h3 class="container-fluid">
-            <p></p>
-            <p></p>
-        </h3>
-        <h3>
-
-        </h3>
-    </main>
-</article>
-
+    <section class="mt-4">
+        <h2>Cupons Gratuitos</h2>
+        <ul class="list-group">
+            {% for cupom in cupons %}
+            <li class="list-group-item">
+                <h3>{{ cupom.title }}</h3>
+                <p>{{ cupom.description }}</p>
+                <p>Código: <strong>{{ cupom.code }}</strong></p>
+                <p><a href="{{ cupom.link }}" target="_blank">Usar cupom</a></p>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+</div>
 {% endblock %}
-<footer>
-
-</footer>

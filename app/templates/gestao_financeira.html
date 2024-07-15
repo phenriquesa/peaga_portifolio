@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Gestão Financeira{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Gestão Financeira</h1>
+
+    <!-- Formulário para registrar o salário -->
+    <form method="post" class="mb-4">
+        <div class="mb-3">
+            <label for="salary" class="form-label">Salário</label>
+            <input type="number" class="form-control" id="salary" name="salary" step="0.01" value="{{ salario }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Registrar Salário</button>
+    </form>
+
+    <!-- Formulário para registrar uma despesa -->
+    <form method="post" class="mb-4">
+        <div class="mb-3">
+            <label for="despesa" class="form-label">Despesa</label>
+            <input type="text" class="form-control" id="despesa" name="despesa" required>
+        </div>
+        <div class="mb-3">
+            <label for="valor" class="form-label">Valor</label>
+            <input type="number" class="form-control" id="valor" name="valor" step="0.01" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Registrar Despesa</button>
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="alert alert-success mt-3">
+        {% for message in messages %}
+        {{ message }}
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <h2>Despesas</h2>
+    <ul class="list-group mt-3">
+        {% for despesa in despesas %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ despesa.despesa }}: R$ {{ despesa.valor }}
+            <form method="post" class="ms-2">
+                <button type="submit" name="delete_expense" value="{{ despesa.despesa }}" class="btn btn-danger btn-sm">Excluir</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <h3>Total das Despesas: R$ {{ total_despesas }}</h3>
+    <h3>Saldo: R$ {{ saldo }}</h3>
+
+    <a href="{{ url_for('download_expenses') }}" class="btn btn-secondary mt-4">Baixar CSV</a>
+</div>
+{% endblock %}

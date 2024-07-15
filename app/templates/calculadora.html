@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Calculadora{% endblock %}
+
+{% block header %}
+<h1>Calculadora</h1>
+{% endblock %}
+
+{% block content %}
+<div class="container col-md-6 col-lg-4 mt-4">
+    <form method="post">
+        <div class="mb-3">
+            <label for="num1" class="form-label">Número 1:</label>
+            <input type="text" class="form-control" id="num1" name="num1" required>
+        </div>
+        <div class="mb-3">
+            <label for="num2" class="form-label">Número 2:</label>
+            <input type="text" class="form-control" id="num2" name="num2" required>
+        </div>
+        <div class="mb-3">
+            <label for="operation" class="form-label">Operação:</label>
+            <select class="form-control" id="operation" name="operation" required>
+                <option value="add">Adicionar</option>
+                <option value="subtract">Subtrair</option>
+                <option value="multiply">Multiplicar</option>
+                <option value="divide">Dividir</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Calcular</button>
+    </form>
+    {% if result is not none %}
+    <div class="alert alert-info mt-3">Resultado: {{ result }}</div>
+    {% endif %}
+    {% if last_result is not none %}
+    <div class="alert alert-warning mt-3">Último Resultado: {{ last_result }}</div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -19,25 +19,24 @@ def register():
         error = None
 
         if not username:
-            error = 'Username is required.'
+            error = 'Username é requirido.'
         elif not password:
-            error = 'Password is required.'
+            error = 'Senha é requirida.'
 
         if error is None:
             try:
                 db.execute(
                     "INSERT INTO user (username, password) VALUES (?, ?)",
-                    (username, generate_password_hash(password)),
+                    (username, generate_password_hash(password, method='pbkdf2:sha256')),
                 )
                 db.commit()
             except db.IntegrityError:
-                error = f"User {username} is already registered."
+                error = f"O usuário {username} já está registrado."
             else:
                 return redirect(url_for("auth.login"))
 
         flash(error)
-
-    return render_template('auth/register.html')
+    return render_template("auth/register.html", title='Cadastro', action='register')
 
 
 @bp.route('/login', methods=('GET', 'POST'))
@@ -52,9 +51,9 @@ def login():
         ).fetchone()
 
         if user is None:
-            error = 'Incorrect username.'
+            error = 'Username Incorreto.'
         elif not check_password_hash(user['password'], password):
-            error = 'Incorrect password.'
+            error = 'Senha Incorreta.'
 
         if error is None:
             session.clear()
@@ -63,7 +62,7 @@ def login():
 
         flash(error)
 
-    return render_template('auth/login.html')
+    return render_template("auth/login.html", title='Login', action='login')
 
 
 @bp.before_app_request
@@ -88,7 +87,7 @@ def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         if g.user is None:
-            return redirect(url_for('auth.login'))
+            return redirect(url_for('auth.login_register'))
 
         return view(**kwargs)
 

@@ -1,17 +1,25 @@
 {% extends 'base.html' %}
+
+{% block title %}Novo Post{% endblock %}
+
 {% block header %}
-  <h1>{% block title %}Novo Post{% endblock %}</h1>
+<h1>Novo Post</h1>
 {% endblock %}
+
 {% block content %}
-<div class="container col-md-3 justify-content-center">
+<div class="container col-md-6 justify-content-center mt-4">
   <form method="post" class="form-group">
-    <label for="title">Titulo</label>
-    <input name="title" id="title" type="text" class="form-control" value="{{ request.form['title'] }}" required>
-    <br>
-    <label for="body">Mensagem</label>
-    <textarea name="body" type="text" class="form-control" id="body">{{ request.form['body'] }}</textarea>
-    <hr>
-    <input type="submit" class="btn btn-success" value="Enviar">
+    <div class="mb-3">
+      <label for="title" class="form-label">Título</label>
+      <input name="title" id="title" type="text" class="form-control" value="{{ request.form.get('title', '') }}" required>
+    </div>
+    <div class="mb-3">
+      <label for="body" class="form-label">Mensagem</label>
+      <textarea name="body" class="form-control" id="body" rows="5" required>{{ request.form.get('body', '') }}</textarea>
+    </div>
+    <div class="text-center">
+      <input type="submit" class="btn btn-success" value="Enviar">
+    </div>
   </form>
-  </div>
+</div>
 {% endblock %}

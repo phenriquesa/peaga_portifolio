@@ -1,24 +1,16 @@
+import csv
 import os
-<<<<<<< HEAD
-<<<<<<< HEAD
-from flask import Flask
+from typing import io
 
-
-def create_app(test_config=None):
-    # create and configure the app
-    app = Flask(__name__, instance_relative_config=True)
-    app.config.from_mapping(
-        SECRET_KEY=os.urandom(64),
-=======
-=======
->>>>>>> dfcd81a (Atualização de arquivos)
-import feedparser
 from bs4 import BeautifulSoup
 from datetime import datetime
 import textwrap
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash, session, send_file, redirect, url_for
 import requests
-from . import tasks
+import feedparser
+import threading
+
+from .auth import login_required
 from .db import get_db
 from .blog import get_post
 
@@ -27,37 +19,18 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='dev',
-<<<<<<< HEAD
->>>>>>> dfcd81a (Atualização de arquivos)
-=======
->>>>>>> dfcd81a (Atualização de arquivos)
         DATABASE=os.path.join(app.instance_path, 'db.sqlite'),
     )
 
     if test_config is None:
-        # load the instance config, if it exists, when not testing
         app.config.from_pyfile('config.py', silent=True)
     else:
-        # load the test config if passed in
         app.config.from_mapping(test_config)
 
-    # ensure the instance folder exists
     try:
         os.makedirs(app.instance_path)
     except OSError:
         pass
-<<<<<<< HEAD
-<<<<<<< HEAD
-# Init DB
-    from . import db
-    db.init_app(app)
-
-    from . import site
-    app.register_blueprint(site.bp)
-    app.add_url_rule('/', endpoint='index')
-=======
-=======
->>>>>>> dfcd81a (Atualização de arquivos)
 
     from . import blog
     app.register_blueprint(blog.bp)
@@ -69,22 +42,47 @@ def create_app(test_config=None):
     from . import auth
     app.register_blueprint(auth.bp)
 
-    rss_url = 'https://g1.globo.com/dynamo/tecnologia/rss2.xml'
+    rss_urls = [
+        'https://g1.globo.com/rss/g1/',
+        'https://g1.globo.com/dynamo/loterias/rss2.xml',
+        'https://g1.globo.com/rss/g1/carros/',
+        'https://g1.globo.com/dynamo/ciencia-e-saude/rss2.xml',
+        'https://g1.globo.com/dynamo/economia/rss2.xml',
+        'https://g1.globo.com/dynamo/educacao/rss2.xml',
+        'https://g1.globo.com/dynamo/mundo/rss2.xml',
+        'https://g1.globo.com/rss/g1/politica/',
+        'https://g1.globo.com/rss/g1/pop-arte/',
+        'https://g1.globo.com/dynamo/tecnologia/rss2.xml',
+        'https://g1.globo.com/dynamo/turismo-e-viagem/rss2.xml'
+    ]
 
-    # 'https://g1.globo.com/dynamo/brasil/rss2.xml',
-    # 'https://g1.globo.com/dynamo/concursos-e-emprego/rss2.xml',
-    # 'https://g1.globo.com/dynamo/economia/rss2.xml',
-    # 'https://g1.globo.com/dynamo/musica/rss2.xml',
-    # 'https://g1.globo.com/dynamo/planeta-bizarro/rss2.xml',
-    # 'https://g1.globo.com/dynamo/tecnologia/rss2.xml',
-    # 'https://g1.globo.com/dynamo/turismo-e-viagem/rss2.xml'
+    current_rss_url_index = 0
 
-    # current_rss_url_index = 0  # Índice da URL RSS atual
+    def update_rss_url():
+        nonlocal current_rss_url_index
+        current_rss_url_index = (current_rss_url_index + 1) % len(rss_urls)
+        print(f"RSS URL atualizada para: {rss_urls[current_rss_url_index]}")
+
+    def fetch_rss():
+        nonlocal current_rss_url_index
+        rss_url = rss_urls[current_rss_url_index]
+        feed = feedparser.parse(rss_url)
+
+    def schedule_rss_update():
+        threading.Timer(100, schedule_rss_update).start()
+        update_rss_url()
+
+    def schedule_rss_fetch():
+        threading.Timer(100, schedule_rss_fetch).start()
+        fetch_rss()
+
+    schedule_rss_update()
+    schedule_rss_fetch()
 
     @app.route('/noticias')
     def noticias():
         try:
-            feed = feedparser.parse(rss_url)
+            feed = feedparser.parse(rss_urls[current_rss_url_index])
             newspaper = []
             num_noticias_a_exibir = 7
             max_caracteres_description = 450
@@ -117,7 +115,7 @@ def create_app(test_config=None):
     @app.route('/noticias/<string:noticia_tag>')
     def exibir_noticia(noticia_tag):
         try:
-            feed = feedparser.parse(rss_url)
+            feed = feedparser.parse(rss_urls[current_rss_url_index])
             entry = None
 
             for item in feed.entries:
@@ -199,12 +197,244 @@ def create_app(test_config=None):
     def sobre():
         return render_template('sobre.html')
 
+    def fetch_coupons():
+        keywords = ['eletronicos', 'roupa', 'comida', 'viajem', 'beleza']
+        base_url = 'https://www.coupongpts.com/en-us/result?search='
+        coupons = []
+
+        for keyword in keywords:
+            url = f"{base_url}{keyword}"
+            response = requests.get(url)
+            soup = BeautifulSoup(response.content, 'html.parser')
+            coupon_elements = soup.find_all('div', class_='card card-1 sale-type')
+
+            for coupon in coupon_elements:
+                title = coupon.find('div', class_='title').get_text()
+                link = coupon.find('button', class_='btn getDeal')['data-url']
+                coupons.append({'title': title, 'link': link})
+
+        return coupons
+
     @app.route('/projetos')
     def projetos():
-        return render_template('projetos.html')
-<<<<<<< HEAD
->>>>>>> dfcd81a (Atualização de arquivos)
-=======
->>>>>>> dfcd81a (Atualização de arquivos)
+
+        coupons = fetch_coupons()
+
+        return render_template('projetos.html', cupons=coupons)
+
+    @app.route('/calculadora', methods=['GET', 'POST'])
+    @login_required
+    def calculadora():
+        result = None
+        if request.method == 'POST':
+            try:
+                num1 = float(request.form['num1'])
+                num2 = float(request.form['num2'])
+                operation = request.form['operation']
+                if operation == 'add':
+                    result = num1 + num2
+                elif operation == 'subtract':
+                    result = num1 - num2
+                elif operation == 'multiply':
+                    result = num1 * num2
+                elif operation == 'divide':
+                    result = num1 / num2
+                session['last_result'] = result
+            except (ValueError, ZeroDivisionError):
+                result = 'Valor inválido ou divisão por zero'
+                session['last_result'] = result
+        return render_template('calculadora.html', result=result, last_result=session.get('last_result'))
+
+    @app.route('/moedas')
+    @login_required
+    def moedas():
+        api_url = 'https://api.exchangerate-api.com/v4/latest/BRL'  # Exemplo de API de taxas de câmbio
+        response = requests.get(api_url)
+        data = response.json()
+        rates = {
+            'BRL': 1,
+            'USD': data['rates']['USD'],
+            'EUR': data['rates']['EUR'],
+            'BTN': data['rates']['BTN'],
+            'ARS': data['rates']['ARS'],
+            'CAD': data['rates']['CAD'],
+            'GBP': data['rates']['GBP'],
+            'JPY': data['rates']['JPY'],
+            'CNY': data['rates']['CNY'],
+            'AUD': data['rates']['AUD'],
+        }
+        return render_template('moedas.html', rates=rates)
+
+    @app.route('/praias')
+    @login_required
+    def praias():
+        url = "https://praialimpa.net/"
+        response = requests.get(url)
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        estados = ["São Paulo", "Santa Catarina", "Rio de Janeiro"]
+        praias_limpas = {estado: [] for estado in estados}
+
+        sections = soup.find_all('section')
+        for section in sections:
+            h1 = section.find('h1')
+            if h1 and h1.text in estados:
+                estado = h1.text
+                praias = section.find_all('div', class_='beach')
+                for praia in praias:
+                    nome = praia.find('div', class_='name').text
+                    localizacao = praia.find('div', class_='location').text
+                    status = praia.find('div', class_='status').text
+                    praias_limpas[estado].append({
+                        'nome': nome,
+                        'localizacao': localizacao,
+                        'status': status
+                    })
+
+        return render_template('praias.html', praias=praias_limpas)
+
+    # Bloco de notas::
+
+    @app.route('/bloco-de-notas', methods=['GET', 'POST'])
+    @login_required
+    def bloco_de_notas():
+        db = get_db()
+
+        if request.method == 'POST':
+            note_content = request.form['note']
+            user_id = session.get('user_id')  # Supondo que o ID do usuário está armazenado na sessão
+            db.execute(
+                'INSERT INTO note (content, user_id) VALUES (?, ?)',
+                (note_content, user_id)
+            )
+            db.commit()
+            flash('Nota salva com sucesso!')
+            return redirect(url_for('bloco_de_notas'))
+
+        notes = db.execute(
+            'SELECT id, content FROM note WHERE user_id = ?',
+            (session.get('user_id'),)
+        ).fetchall()
+
+        return render_template('bloco_notas.html', notes=notes)
+
+    @app.route('/download_note/<int:note_id>')
+    @login_required
+    def download_note(note_id):
+        db = get_db()
+        note = db.execute(
+            'SELECT content FROM note WHERE id = ? AND user_id = ?',
+            (note_id, session.get('user_id'))
+        ).fetchone()
+
+        if note:
+            return send_file(
+                io.BytesIO(note['content'].encode('utf-8')),
+                as_attachment=True,
+                download_name=f'note_{note_id}.txt'
+            )
+        flash('Nota não encontrada ou você não tem permissão para acessá-la.')
+        return redirect(url_for('bloco_de_notas'))
+
+    @app.route('/delete_note/<int:note_id>')
+    @login_required
+    def delete_note(note_id):
+        db = get_db()
+        db.execute(
+            'DELETE FROM note WHERE id = ? AND user_id = ?',
+            (note_id, session.get('user_id'))
+        )
+        db.commit()
+        flash('Nota excluída com sucesso!')
+        return redirect(url_for('bloco_de_notas'))
+
+    # Gestão financeira::
+
+    def get_expenses(user_id):
+        file_path = os.path.join(app.instance_path, f'expenses_{user_id}.csv')
+        if os.path.exists(file_path):
+            with open(file_path, mode='r', newline='') as file:
+                reader = csv.DictReader(file)
+                return list(reader)
+        return []
+
+    def save_expense(user_id, despesa, valor):
+        file_path = os.path.join(app.instance_path, f'expenses_{user_id}.csv')
+        file_exists = os.path.exists(file_path)
+        with open(file_path, mode='a', newline='') as file:
+            fieldnames = ['despesa', 'valor']
+            writer = csv.DictWriter(file, fieldnames=fieldnames)
+            if not file_exists:
+                writer.writeheader()
+            writer.writerow({'despesa': despesa, 'valor': valor})
+
+    def delete_expense(user_id, despesa_id):
+        file_path = os.path.join(app.instance_path, f'expenses_{user_id}.csv')
+        temp_file_path = os.path.join(app.instance_path, f'expenses_{user_id}_temp.csv')
+
+        with open(file_path, mode='r', newline='') as file, open(temp_file_path, mode='w', newline='') as temp_file:
+            reader = csv.DictReader(file)
+            writer = csv.DictWriter(temp_file, fieldnames=reader.fieldnames)
+            writer.writeheader()
+
+            for row in reader:
+                if row['despesa'] != despesa_id:
+                    writer.writerow(row)
+
+        os.replace(temp_file_path, file_path)
+
+    def get_salary(user_id):
+        file_path = os.path.join(app.instance_path, f'salary_{user_id}.csv')
+        if os.path.exists(file_path):
+            with open(file_path, mode='r', newline='') as file:
+                reader = csv.DictReader(file)
+                salary_row = list(reader)
+                if salary_row:
+                    return float(salary_row[0]['salary'])
+        return 0.0
+
+    def save_salary(user_id, salary):
+        file_path = os.path.join(app.instance_path, f'salary_{user_id}.csv')
+        with open(file_path, mode='w', newline='') as file:
+            fieldnames = ['salary']
+            writer = csv.DictWriter(file, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerow({'salary': salary})
+
+    @app.route('/gestao-financeira', methods=['GET', 'POST'])
+    @login_required
+    def gestao_financeira():
+        user_id = session.get('user_id')  # Supondo que o ID do usuário está armazenado na sessão
+
+        if request.method == 'POST':
+            if 'salary' in request.form:
+                salary = float(request.form['salary'])
+                save_salary(user_id, salary)
+                flash('Salário registrado com sucesso!')
+            elif 'despesa' in request.form:
+                despesa = request.form['despesa']
+                valor = float(request.form['valor'])
+                save_expense(user_id, despesa, valor)
+                flash('Despesa registrada com sucesso!')
+            elif 'delete_expense' in request.form:
+                despesa_id = request.form['delete_expense']
+                delete_expense(user_id, despesa_id)
+                flash('Despesa excluída com sucesso!')
+            return redirect(url_for('gestao_financeira'))
+
+        despesas = get_expenses(user_id)
+        salario = get_salary(user_id)
+        total_despesas = sum(float(d['valor']) for d in despesas)
+        saldo = salario - total_despesas
+
+        return render_template('gestao_financeira.html', despesas=despesas, salario=salario,
+                               total_despesas=total_despesas, saldo=saldo)
+
+    @app.route('/download-expenses')
+    @login_required
+    def download_expenses():
+        user_id = session.get('user_id')  # Supondo que o ID do usuário está armazenado na sessão
+        file_path = os.path.join(app.instance_path, f'expenses_{user_id}.csv')
+        return send_file(file_path, as_attachment=True)
 
     return app

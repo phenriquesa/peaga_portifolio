@@ -1,72 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<!doctype html>
-<html lang="pt-br">
-<head>
-    <title>{% block title %}{% endblock %} | DEV</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <meta name="description" content="Site desenvolvido por Paulo Henrique, tela simples para portifolio"/>
-    <meta name="keywords" content="Paulo Henrique, Portfólio"/>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"/>
-    <link rel="icon" href="{{ url_for('static', filename='img/logo.svg') }}"/>
-</head>
-<!-- NavBar -->
-<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
-    <a class="navbar-brand" href="{{ url_for('site.index') }}">
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-dice-6"
-             viewBox="0 0 16 16">
-            <path d="M13 1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h10zM3 0a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V3a3 3 0 0 0-3-3H3z"/>
-            <path d="M5.5 4a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm8 0a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-4a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm-8 4a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-4a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-        </svg>
-        </i></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
-            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Alterna navegação">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            {% if g.user %}
-            <li class="nav-item">
-                <span class="nav-link disabled">{{ g.user['username'].upper() }}</span>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('site.projetos') }}">Projetos</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('site.sobre') }}">Sobre</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('auth.logout') }}">Sair</a>
-            </li>
-            {% else %}
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('site.projetos') }}">Projetos</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('auth.register') }}">Registrar</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('site.sobre') }}">Sobre</a>
-            </li>
-            {% endif %}
-        </ul>
-    </div>
-</nav>
-<!-- NavBar -->
-
-<body>
-{% block content %}
-<section class="container col-md-6 offset-md-3 d-flex principal">
-    <main>
-
-    </main>
-
-=======
-=======
->>>>>>> dfcd81a (Atualização de arquivos)
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -81,22 +12,22 @@
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="icon" href="{{ url_for('static', filename='img/logo.svg') }}"/>
 </head>
-
+<body>
 <!-- NavBar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{{ url_for('index') }}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-dice-6"
+             viewBox="0 0 16 16">
+            <path d="M13 1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h10zM3 0a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V3a3 3 0 0 0-3-3H3z"/>
+            <path d="M5.5 4a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm8 0a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-4a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm-8 4a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-4a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+        </svg>
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler"
-            aria-controls="navbarToggler" aria-expanded="false" aria-label="Alterna navegação">
+            aria-controls="navbarToggler" aria-expanded="false" aria-label="Alternar navegação">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarToggler">
-        <a class="navbar-brand col-lg-3 me-0" href="{{ url_for('index') }}">
-            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-dice-6"
-                 viewBox="0 0 16 16">
-                <path d="M13 1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h10zM3 0a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V3a3 3 0 0 0-3-3H3z"/>
-                <path d="M5.5 4a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm8 0a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-4a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm-8 4a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-4a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-            </svg>
-        </a>
-        <ul class="nav-tabs justify-content-end me-auto">
+        <ul class="navbar-nav mr-auto">
             {% if g.user %}
             <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('noticias') }}">Notícias</a>
@@ -110,13 +41,30 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('blog') }}">Blog</a>
             </li>
-            <div class="d-lg-flex my-2 my-sm-0 nav">
-                <li class="nav-item">
-                    <span class="my-2 my-sm-0">{{ g.user['username'] }}</span>
-                </li>
-                <button class="btn btn-outline-danger my-2 my-sm-0"><a href="{{ url_for('auth.logout') }}">Sair</a>
-                </button>
-            </div>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('blog') }}">Blog</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('calculadora') }}">Calculadora</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('moedas') }}">Valores de Moedas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('praias') }}">Praias Limpas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('bloco_de_notas') }}">Bloco de Notas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('gestao_financeira') }}">Gestão Financeira</a>
+            </li>
+            <li class="nav-item d-lg-flex my-2 my-sm-0">
+                <span class="my-2 my-sm-0">{{ g.user['username'] }}</span>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-outline-danger nav-link" href="{{ url_for('auth.logout') }}">Sair</a>
+            </li>
             {% else %}
             <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('noticias') }}">Notícias</a>
@@ -127,33 +75,20 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('sobre') }}">Sobre</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('blog') }}">Blog</a>
+            <li class="nav-item d-lg-flex my-2 my-sm-0">
+                <a class="nav-link" href="{{ url_for('auth.login') }}">Área Restrita</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link d-lg-flex my-2 my-sm-0 nav"
-                   href="{{ url_for('auth.register') }}">Registrar</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link d-lg-flex my-2 my-sm-0 nav" href="{{ url_for('auth.login') }}">Entrar</a>
-            </li>
+            {% endif %}
         </ul>
-    </div>
-    {% endif %}
-    </ul>
     </div>
 </nav>
 <!-- NavBar -->
-<body>
+
 {% block content %}
 <section class="container-fluid">
     <main>
-
+        <!-- Conteúdo principal -->
     </main>
-<<<<<<< HEAD
->>>>>>> dfcd81a (Atualização de arquivos)
-=======
->>>>>>> dfcd81a (Atualização de arquivos)
 </section>
 {% endblock %}
 
@@ -166,45 +101,25 @@
             </div>
         </div>
     </div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js')}}"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='js/bootstrap.min.js') }}"/>
-    <link rel="stylesheet" href="{{ url_for('static', filename='js/jquery-3.3.1.slim.min.js') }}"/>
-    <link rel="stylesheet" href="{{ url_for('static', filename='js/popper.min.js') }}"/>
-=======
-=======
->>>>>>> dfcd81a (Atualização de arquivos)
-    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-            crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-            crossorigin="anonymous"></script>
-<<<<<<< HEAD
->>>>>>> dfcd81a (Atualização de arquivos)
-=======
->>>>>>> dfcd81a (Atualização de arquivos)
-    <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
 </footer>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+<!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
 </body>
-<<<<<<< HEAD
-<<<<<<< HEAD
 </html>
-=======
-</html>
->>>>>>> dfcd81a (Atualização de arquivos)
-=======
-</html>
->>>>>>> dfcd81a (Atualização de arquivos)

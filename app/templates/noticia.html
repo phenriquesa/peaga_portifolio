@@ -1,14 +1,19 @@
 {% extends 'base.html' %}
+
+{% block title %}Notícia{% endblock %}
+
 {% block header %}
-<h1>{% block title %} Notícia {% endblock %}</h1>
+<h1>Notícia</h1>
 {% endblock %}
+
 {% block content %}
 <div class="container">
     <h1 class="mt-5">{{ noticia.title }}</h1>
-    <br>
-    <p class="blockquote text-left">
-        {{ noticia.content|replace('. ', '.<br>')|safe }}
-    </p>
-    <small class="text-muted">Postado: {{ noticia.published }}</small>
+    <div class="mt-4 mb-3">
+        <p class="blockquote text-left">
+            {{ noticia.content|replace('. ', '.<br>')|safe }}
+        </p>
+        <small class="text-muted">Postado: {{ noticia.published }}</small>
+    </div>
 </div>
 {% endblock %}

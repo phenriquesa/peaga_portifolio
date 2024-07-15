@@ -1,130 +1,193 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway:300,400,500,600&display=swap');
-* {margin:0; padding:0; border:0; font-family: sans-serif;}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: 'Raleway', sans-serif;
+}
 
 body {
     background: #fff;
     box-sizing: border-box;
+    color: rgb(2, 157, 84);
     font-family: 'Raleway', sans-serif;
-    color:rgb(2, 157, 84);
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> dfcd81a (Atualização de arquivos)
-nav { flex: auto; margin: 0; }
-nav a { text-decoration: none; padding: 0.25rem 0.5rem; }
-nav ul  { display: flex; list-style: none; margin: 0; padding: 0; }
-nav div ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
-.post .about { color: slategray; font-style: italic; }
+/* CSS atualizado para navbar e layout */
+nav {
+    margin: 0;
+}
 
-<<<<<<< HEAD
->>>>>>> dfcd81a (Atualização de arquivos)
-=======
->>>>>>> dfcd81a (Atualização de arquivos)
+.navbar {
+    padding: 0.5rem 1rem;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cpath stroke='currentColor' stroke-width='3' d='M5 7h20M5 15h20M5 23h20'/%3E%3C/svg%3E");
+}
+
+.navbar-nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: auto;
+}
+
+.navbar-nav .nav-item {
+    margin-left: 1rem;
+}
+
+.navbar-nav .nav-link {
+    padding: 0.5rem 0.75rem;
+}
+
+.btn-outline-primary, .btn-outline-danger {
+    margin-left: 0.5rem;
+}
+
+/* Responsividade e ajustes adicionais */
+@media (max-width: 767px) {
+    .navbar-nav {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 1rem;
+        text-align: center;
+    }
+
+    .navbar-nav .nav-item {
+        margin-left: 0;
+        margin-bottom: 0.5rem;
+    }
+
+    .navbar-toggler {
+        margin-right: 1rem;
+    }
+}
+
+.post .about {
+    color: slategray;
+    font-style: italic;
+}
+
 #logo {
     margin-bottom: 5px;
     margin-top: 0px;
     width: 375px;
     height: 375px;
     color: #FFF;
-    /* Agora a mágica */
     border-radius: 50%;
 }
 
+h2, h3, p {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
 
 h2 {
-    text-align: center;
     font-weight: 600;
-    margin-top: 30px;
-    margin-bottom: 20px;
     font-size: 18px;
 }
 
-h3 {
-    text-align: center;
+h3, p {
     font-weight: 200;
-    margin-top: 30px;
-    margin-bottom: 20px;
     font-size: 18px;
-    align-items: center;
 }
 
-p {
-    text-align: center;
-    font-weight: 200;
-    margin-top: 30px;
-    margin-bottom: 20px;
-    font-size: 14px;
-    align-items: center;
+a {
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 4px;
 }
 
-a:link {text-decoration: none; color: inherit; margin-bottom: 4px;}
-a:visited {
-    color: black;
-}
-/* mouse over */
 a:hover {
     color: #000000;
     text-decoration: underline;
 }
 
-
-
-// Usage
 .container {
-  width: 940px;
-  .center-block();
-}
-
-// Mixin
-.center-block() {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+    width: 100%;
+    max-width: 940px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .form-control {
     max-width: 100%;
     font-size: 18px;
     margin-top: 10px;
-    background:none;
+    background: none;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
-.alert, .alert-danger {
-    color: #B22222;
-    text-decoration: none;
-    align: center;
+/* Estilo para o botão de fechar da mensagem */
+.btn-close {
+    background: none;
+    border: none;
+    color: #333; /* Cor do ícone do botão */
+    font-size: 1.25rem;
+    opacity: 0.5;
+    cursor: pointer;
 }
+
+.btn-close:hover {
+    opacity: 0.75;
+}
+
+.alert {
+    position: relative; /* Garantir que o botão de fechar esteja posicionado corretamente */
+    padding-right: 3rem; /* Espaço para o botão de fechar */
+}
+
+.alert .btn-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    z-index: 1; /* Garantir que o botão de fechar fique sobre a mensagem */
+}
+
 
 #info {
-  position: absolute;
-  box-sizing: border-box;
-  padding:0 20px;
-  color:#fff;
-}
-#txt-info {
-  margin-top:20px;
-  margin-bottom:50px;
-  text-align: center;
-  font-size: 16px;
+    position: absolute;
+    box-sizing: border-box;
+    padding: 0 20px;
+    color: #fff;
 }
 
-/* LOAD CARREGANDO ... */
+#txt-info {
+    margin-top: 20px;
+    margin-bottom: 50px;
+    text-align: center;
+    font-size: 16px;
+}
 
 .lds-roller {
     width: 60px;
     height: 60px;
     position: absolute;
-    margin-top:80px;
-    margin-left:-8px;
-  }
-  .lds-roller div {
+    margin-top: 80px;
+    margin-left: -8px;
+}
+
+.lds-roller div {
     animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     transform-origin: 32px 32px;
-  }
-  .lds-roller div:after {
+}
+
+.lds-roller div:after {
     content: " ";
     display: block;
     position: absolute;
@@ -133,77 +196,78 @@ a:hover {
     border-radius: 50%;
     background: #fff;
     margin: -3px 0 0 -3px;
-  }
-  .lds-roller div:nth-child(1) {
+}
+
+.lds-roller div:nth-child(1) {
     animation-delay: -0.036s;
-  }
-  .lds-roller div:nth-child(1):after {
+}
+.lds-roller div:nth-child(1):after {
     top: 50px;
     left: 50px;
-  }
-  .lds-roller div:nth-child(2) {
+}
+.lds-roller div:nth-child(2) {
     animation-delay: -0.072s;
-  }
-  .lds-roller div:nth-child(2):after {
+}
+.lds-roller div:nth-child(2):after {
     top: 54px;
     left: 45px;
-  }
-  .lds-roller div:nth-child(3) {
+}
+.lds-roller div:nth-child(3) {
     animation-delay: -0.108s;
-  }
-  .lds-roller div:nth-child(3):after {
+}
+.lds-roller div:nth-child(3):after {
     top: 57px;
     left: 39px;
-  }
-  .lds-roller div:nth-child(4) {
+}
+.lds-roller div:nth-child(4) {
     animation-delay: -0.144s;
-  }
-  .lds-roller div:nth-child(4):after {
+}
+.lds-roller div:nth-child(4):after {
     top: 58px;
     left: 32px;
-  }
-  .lds-roller div:nth-child(5) {
+}
+.lds-roller div:nth-child(5) {
     animation-delay: -0.18s;
-  }
-  .lds-roller div:nth-child(5):after {
+}
+.lds-roller div:nth-child(5):after {
     top: 57px;
     left: 25px;
-  }
-  .lds-roller div:nth-child(6) {
+}
+.lds-roller div:nth-child(6) {
     animation-delay: -0.216s;
-  }
-  .lds-roller div:nth-child(6):after {
+}
+.lds-roller div:nth-child(6):after {
     top: 54px;
     left: 19px;
-  }
-  .lds-roller div:nth-child(7) {
+}
+.lds-roller div:nth-child(7) {
     animation-delay: -0.252s;
-  }
-  .lds-roller div:nth-child(7):after {
+}
+.lds-roller div:nth-child(7):after {
     top: 50px;
     left: 14px;
-  }
-  .lds-roller div:nth-child(8) {
+}
+.lds-roller div:nth-child(8) {
     animation-delay: -0.288s;
-  }
-  .lds-roller div:nth-child(8):after {
+}
+.lds-roller div:nth-child(8):after {
     top: 45px;
     left: 10px;
-  }
-  @keyframes lds-roller {
+}
+
+@keyframes lds-roller {
     0% {
-      transform: rotate(0deg);
+        transform: rotate(0deg);
     }
     100% {
-      transform: rotate(360deg);
+        transform: rotate(360deg);
     }
-  }
+}
 
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-      /* display: none; <- Crashes Chrome on hover */
-      -webkit-appearance: none;
-  }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
 
 footer {
     bottom: 0;
@@ -211,24 +275,70 @@ footer {
     height: 45px;
     text-align: center;
     line-height: 45px;
-<<<<<<< HEAD
-<<<<<<< HEAD
-}
-=======
-=======
->>>>>>> dfcd81a (Atualização de arquivos)
+    background-color: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    color: #6c757d;
 }
 
+button {
+    cursor: pointer;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #28a745;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
 
-$zindex-dropdown:          1000 !default;
-$zindex-sticky:            1020 !default;
-$zindex-fixed:             1030 !default;
-$zindex-modal-backdrop:    1040 !default;
-$zindex-modal:             1050 !default;
-$zindex-popover:           1060 !default;
-<<<<<<< HEAD
-$zindex-tooltip:           1070 !default;
->>>>>>> dfcd81a (Atualização de arquivos)
-=======
-$zindex-tooltip:           1070 !default;
->>>>>>> dfcd81a (Atualização de arquivos)
+button:hover {
+    background-color: #218838;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.form-container {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.toggle-panel {
+    flex: 1;
+    text-align: center;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+}
+
+.toggle-panel h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.toggle-panel p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.toggle-panel button {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.toggle-panel button:hover {
+    background-color: #0056b3;
+}
