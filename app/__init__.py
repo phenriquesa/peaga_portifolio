@@ -1,6 +1,5 @@
 import csv
 import os
-from typing import io
 from bs4 import BeautifulSoup
 from datetime import datetime
 import textwrap
@@ -29,6 +28,7 @@ import unicodedata
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
+        port=8000,
         SECRET_KEY=os.getenv("SECRET_KEY"),
         DATABASE=os.path.join(app.instance_path, "db.sqlite"),
     )
