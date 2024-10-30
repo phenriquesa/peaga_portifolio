@@ -1,38 +1,52 @@
 {% extends 'base.html' %}
 
 {% block title %}Calculadora{% endblock %}
+{% block content %}
 
 {% block header %}
-<h1>Calculadora</h1>
+<h1 class="text-center mt-4">Calculadora</h1>
 {% endblock %}
 
-{% block content %}
 <div class="container col-md-6 col-lg-4 mt-4">
-    <form method="post">
-        <div class="mb-3">
-            <label for="num1" class="form-label">Número 1:</label>
-            <input type="text" class="form-control" id="num1" name="num1" required>
+    <!-- Container com a imagem de fundo -->
+    <div class="calculator-wrapper position-relative text-center p-4 rounded shadow-sm bg-light" style="background-image: url('/static/images/calculator-bg.jpg'); background-size: cover; background-position: center; border-radius: 10px; padding: 20px;">
+        
+        <!-- Fundo semi-transparente para o formulário -->
+        <div class="calculator-overlay p-4" style="background-color: rgba(255, 255, 255, 0.8); border-radius: 10px;">
+            <h3 class="text-center mb-4" style="font-weight: bold;">Faça seus cálculos</h3>
+
+            <!-- Formulário para cálculos -->
+            <form method="post">
+                <div class="mb-3">
+                    <label for="num1" class="form-label">Número 1:</label>
+                    <input type="number" class="form-control" id="num1" name="num1" required step="any" placeholder="Insira o primeiro número">
+                </div>
+                <div class="mb-3">
+                    <label for="num2" class="form-label">Número 2:</label>
+                    <input type="number" class="form-control" id="num2" name="num2" required step="any" placeholder="Insira o segundo número">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Operação:</label>
+                    <div class="d-flex flex-wrap justify-content-center">
+                        <button type="submit" name="operation" value="add" class="btn btn-primary me-2 mb-2">Somar</button>
+                        <button type="submit" name="operation" value="subtract" class="btn btn-primary me-2 mb-2">Subtrair</button>
+                        <button type="submit" name="operation" value="multiply" class="btn btn-primary me-2 mb-2">Multiplicar</button>
+                        <button type="submit" name="operation" value="divide" class="btn btn-primary mb-2">Dividir</button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Mensagens de resultado e erro -->
+            {% if result is not none %}
+            <div class="alert alert-success mt-3 text-center">Resultado: <strong>{{ result }}</strong></div>
+            {% endif %}
+            {% if last_result is not none %}
+            <div class="alert alert-warning mt-3 text-center">Último Resultado: <strong>{{ last_result }}</strong></div>
+            {% endif %}
+            {% if error_message is not none %}
+            <div class="alert alert-danger mt-3 text-center">{{ error_message }}</div>
+            {% endif %}
         </div>
-        <div class="mb-3">
-            <label for="num2" class="form-label">Número 2:</label>
-            <input type="text" class="form-control" id="num2" name="num2" required>
-        </div>
-        <div class="mb-3">
-            <label for="operation" class="form-label">Operação:</label>
-            <select class="form-control" id="operation" name="operation" required>
-                <option value="add">Adicionar</option>
-                <option value="subtract">Subtrair</option>
-                <option value="multiply">Multiplicar</option>
-                <option value="divide">Dividir</option>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Calcular</button>
-    </form>
-    {% if result is not none %}
-    <div class="alert alert-info mt-3">Resultado: {{ result }}</div>
-    {% endif %}
-    {% if last_result is not none %}
-    <div class="alert alert-warning mt-3">Último Resultado: {{ last_result }}</div>
-    {% endif %}
+    </div>
 </div>
 {% endblock %}

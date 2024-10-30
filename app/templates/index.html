@@ -1,50 +1,56 @@
 {% extends 'base.html' %}
 
-{% block title %}HOME{% endblock %}
-
-{% block header %}
-<h1>HOME</h1>
-{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block content %}
-<br>
-<article class="container col-md-4 justify-content-center">
+<div class="container col-lg-6 my-5">
     <main>
+        <!-- Loop para exibir cada post -->
         {% for post in posts %}
-        <article class="container-fluid mb-4">
-            <header>
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ post['title'] }}</h5>
-                        <p class="card-text">{{ post['body'] }}</p>
-                        <p class="card-text small">por {{ post['username'] }} em {{ post['created'].strftime('%d/%m/%Y') }}</p>
-                    </div>
+        <div class="card mb-4 shadow-sm border-0 rounded-3 transition" style="background-color: #f8f9fa;">
+            <div class="card-body p-4">
+                <h5 class="card-title fw-semibold text-primary mb-2" style="font-family: 'Georgia', serif;">
+                    {{ post['title'] }}
+                </h5>
+                <p class="card-text text-secondary mb-3" style="line-height: 1.6;">
+                    {{ post['body'] }}
+                </p>
+                <div class="card-footer border-0 bg-transparent text-end text-muted small" style="font-size: 0.9rem;">
+                    <i class="fas fa-user me-1"></i> {{ post['username'] }} <span class="mx-2">|</span> 
+                    <i class="fas fa-calendar-alt me-1"></i> {{ post['created'].strftime('%d/%m/%Y') }}
                 </div>
-            </header>
-        </article>
+            </div>
+        </div>
         {% if not loop.last %}
-        <hr>
+        <hr class="my-4">
         {% endif %}
         {% endfor %}
-        <br>
-        <article class="container-fluid alert alert-info">
-            <p>Localização: {{user_location}}</p>
-            {% if weather_data %}
-            <p>Cidade: {{weather_data.name}}</p>
-            <p>Temperatura: {{weather_data.main.temp}}°C</p>
-            <p>Condição: {{condicao_meteorologica}}</p>
-            {% else %}
-            <p>Não foi possível obter a previsão do tempo.</p>
-            {% endif %}
-        </article>
+
+        <!-- Seção de informações climáticas -->
+        <div class="alert alert-info mt-5 p-4 rounded-3 shadow-sm" style="background-color: #eef7fc; border: none;">
+            <h5 class="alert-heading text-center text-primary mb-3" style="font-family: 'Georgia', serif;">
+                <i class="fas fa-cloud-sun display-6"></i> Informações sobre o Clima
+            </h5>
+            <div class="text-center">
+                <p class="mb-1"><strong>Localização:</strong> {{ user_location }}</p>
+                {% if weather_data %}
+                    <p class="mb-1"><strong>Temperatura:</strong> {{ weather_data.main.temp }}°C</p>
+                    <p><strong>Condição:</strong> {{ condicao_meteorologica }}</p>
+                {% else %}
+                    <p class="text-muted">Não foi possível obter a previsão do tempo.</p>
+                {% endif %}
+            </div>
+        </div>
     </main>
-</article>
-{% endblock %}
+</div>
 
-{% block footer %}
-<footer>
-    <div class="container-fluid justify-content-center">
-
-    </div>
-</footer>
+<style>
+    .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .transition {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+</style>
 {% endblock %}

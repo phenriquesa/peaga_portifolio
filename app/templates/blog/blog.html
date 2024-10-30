@@ -3,31 +3,57 @@
 {% block title %}Blog{% endblock %}
 
 {% block header %}
-<h1>Blog</h1>
+<h1 class="text-center my-4">Blog</h1>
 {% endblock %}
 
 {% block content %}
-<article class="container col-md-8 justify-content-center">
-    <main>
-        <div class="d-flex justify-content-between align-items-center my-4">
-            <h1 class="mt-4">Blog</h1>
-            {% if g.user %}
-            <a class="btn btn-outline-dark" href="{{ url_for('blog.create') }}">Novo</a>
-            {% endif %}
-        </div>
+<div class="container col-md-8 col-lg-6">
+    <!-- Botão de novo post -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Posts do Blog</h2>
+        {% if g.user %}
+        <a class="btn btn-primary" href="{{ url_for('blog.create') }}">
+            <i class="bi bi-plus-lg"></i> Novo Post
+        </a>
+        {% endif %}
+    </div>
 
+    <!-- Lista de posts -->
+    {% if posts|length > 0 %}
         {% for post in posts %}
-        <div class="card mb-4" style="width: 100%;">
+        <div class="card mb-4 shadow-sm">
+            {% if post['image_url'] %}
+            <img src="{{ post['image_url'] }}" class="card-img-top" alt="Imagem de {{ post['title'] }}">
+            {% endif %}
             <div class="card-body">
                 <h5 class="card-title">{{ post['title'] }}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">por {{ post['username'] }} em {{ post['created'].strftime('%d/%m/%Y') }}</h6>
-                <p class="card-text">{{ post['body'] }}</p>
+                <h6 class="card-subtitle mb-2 text-muted">
+                    por <strong>{{ post['username'] }}</strong> em {{ post['created'].strftime('%d/%m/%Y') }}
+                </h6>
+                <p class="card-text">{{ post['body'][:250] }}{% if post['body']|length > 250 %}...{% endif %}</p>
+
+                <!-- Opções de edição para o autor do post -->
                 {% if g.user and g.user['id'] == post['author_id'] %}
-                <a class="btn btn-outline-dark btn-sm" href="{{ url_for('blog.update', id=post['id']) }}">Editar</a>
+                <div class="d-flex justify-content-end mt-3">
+                    <a class="btn btn-outline-secondary btn-sm me-2" href="{{ url_for('blog.update', id=post['id']) }}">
+                        <i class="bi bi-pencil"></i> Editar
+                    </a>
+                    <form action="{{ url_for('blog.delete', id=post['id']) }}" method="post" style="display: inline;">
+                        <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('Tem certeza que deseja deletar este post?');">
+                            <i class="bi bi-trash"></i> Deletar
+                        </button>
+                    </form>
+                </div>
                 {% endif %}
             </div>
         </div>
         {% endfor %}
-    </main>
-</article>
+    {% else %}
+    <div class="alert alert-info text-center" role="alert">
+        <strong>Nenhum post disponível no momento.</strong>
+        <br>
+        Sinta-se à vontade para criar um novo post!
+    </div>
+    {% endif %}
+</div>
 {% endblock %}

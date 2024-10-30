@@ -3,27 +3,44 @@
 {% block title %}Editar "{{ post['title'] }}"{% endblock %}
 
 {% block header %}
-<h1>Editar "{{ post['title'] }}"</h1>
+<h1 class="text-center mt-4">Editar "{{ post['title'] }}"</h1>
 {% endblock %}
 
 {% block content %}
-<div class="container col-md-6 col-lg-4 mt-4">
-  <form method="post" class="form-group">
-    <div class="mb-3">
-      <label for="title" class="form-label">Título</label>
-      <input name="title" id="title" type="text" class="form-control"
-             value="{{ request.form.get('title', post['title']) }}" required>
-    </div>
-    <div class="mb-3">
-      <label for="body" class="form-label">Mensagem</label>
-      <textarea name="body" class="form-control" id="body" rows="5" required>{{ request.form.get('body', post['body']) }}</textarea>
-    </div>
-    <div class="d-flex justify-content-between">
-      <input type="submit" class="btn btn-success" value="Atualizar">
-      <form action="{{ url_for('blog.delete', id=post['id']) }}" method="post">
-        <input class="btn btn-outline-danger" type="submit" value="Deletar" onclick="return confirm('Tem certeza?');">
-      </form>
-    </div>
-  </form>
+<div class="container col-md-6 col-lg-5 mt-4">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            {% for message in messages %}
+            <strong>{{ message }}</strong>
+            {% endfor %}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Formulário de atualização -->
+    <form method="post" class="form-group shadow-sm p-4 rounded bg-light border">
+        <div class="mb-3">
+            <label for="title" class="form-label">Título</label>
+            <input name="title" id="title" type="text" class="form-control"
+                   value="{{ request.form.get('title', post['title']) }}" placeholder="Atualize o título" required>
+        </div>
+        <div class="mb-3">
+            <label for="body" class="form-label">Conteúdo</label>
+            <textarea name="body" class="form-control" id="body" rows="5"
+                      placeholder="Atualize o conteúdo" required>{{ request.form.get('body', post['body']) }}</textarea>
+        </div>
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-success w-50">Atualizar</button>
+        </div>
+    </form>
+
+    <!-- Formulário de deleção separado -->
+    <form action="{{ url_for('blog.delete', id=post['id']) }}" method="post" class="mt-3">
+        <button class="btn btn-outline-danger w-100" type="submit" onclick="return confirm('Tem certeza que deseja deletar este post?');">
+            Deletar
+        </button>
+    </form>
 </div>
 {% endblock %}

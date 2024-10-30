@@ -3,35 +3,97 @@
 {% block title %}Bloco de Notas{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1>Bloco de Notas</h1>
-    <form method="post">
-        <div class="mb-3">
-            <label for="note" class="form-label">Sua Nota</label>
-            <textarea class="form-control" id="note" name="note" rows="5" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Salvar</button>
-    </form>
+<div class="container-sm mt-5">
+    <h1 class="text-center mb-4" style="font-family: 'Arial', sans-serif; color: #343a40;">Bloco de Notas</h1>
 
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <div class="alert alert-success mt-3">
-        {% for message in messages %}
-        {{ message }}
+    <!-- Formulário para adicionar nova nota -->
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6"> <!-- Ajusta a largura para telas médias e grandes -->
+            <form method="post" class="mb-4">
+                <div class="mb-3">
+                    <label for="note" class="form-label" style="font-weight: bold; color: #495057;">Sua Nota</label>
+                    <textarea class="form-control" id="note" name="note" rows="3" placeholder="Escreva sua nota aqui..."
+                        required
+                        style="background-color: #f8f9fa; border: 1px solid #ced4da; resize: vertical; padding: 10px;"></textarea>
+                </div>
+                <button type="submit" class="btn btn-info w-100" style="font-weight: bold;">
+                    <i class="fas fa-save"></i> Salvar Nota
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Exibir mensagens de sucesso -->
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                {% for message in messages %}
+                {{ message }}
+                {% endfor %}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+
+    <h2 class="mt-5 text-center" style="font-family: 'Arial', sans-serif; color: #343a40;">Minhas Notas</h2>
+
+    <!-- Mensagem de status de exclusão -->
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div id="status-message" class="mt-3 text-center" style="display: none;">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    Nota excluída com sucesso!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Lista de notas em cards -->
+    <div class="row mt-4" id="notes-list">
+        {% for note in notes %}
+        <div class="col-md-4 mb-3" id="note-{{ note.id }}">
+            <div class="card h-100 border-info">
+                <div class="card-body">
+                    <p class="card-text" style="color: #495057;">{{ note.content }}</p>
+                </div>
+                <div class="card-footer bg-transparent d-flex justify-content-between">
+                    <a href="{{ url_for('download_note', note_id=note.id) }}" class="btn btn-outline-primary btn-sm">
+                        <i class="fas fa-download"></i> Baixar
+                    </a>
+                    <a href="#" class="btn btn-outline-danger btn-sm"
+                        onclick="event.preventDefault(); deleteNote({{ note.id }});">
+                        <i class="fas fa-trash-alt"></i> Excluir
+                    </a>
+                </div>
+            </div>
+        </div>
         {% endfor %}
     </div>
-    {% endif %}
-    {% endwith %}
 
-    <h2>Minhas Notas</h2>
-    <ul class="list-group mt-3">
-        {% for note in notes %}
-        <li class="list-group-item">
-            {{ note.content }}
-            <a href="{{ url_for('download_note', note_id=note.id) }}" class="btn btn-info btn-sm float-end ms-2">Baixar</a>
-            <a href="{{ url_for('delete_note', note_id=note.id) }}" class="btn btn-danger btn-sm float-end">Excluir</a>
-        </li>
-        {% endfor %}
-    </ul>
+    <!-- Script para excluir a nota -->
+    <script>
+        function deleteNote(noteId) {
+            if (confirm('Tem certeza que deseja excluir esta nota?')) {
+                fetch(`/delete_note/${noteId}`, { method: 'DELETE' })
+                    .then(response => response.ok ? response.json() : Promise.reject('Erro ao excluir a nota'))
+                    .then(data => {
+                        document.getElementById('status-message').style.display = 'block';
+                        document.getElementById(`note-${noteId}`).remove();
+                        setTimeout(() => document.getElementById('status-message').style.display = 'none', 2500);
+                    })
+                    .catch(error => console.error(error));
+            }
+        }
+    </script>
 </div>
 {% endblock %}

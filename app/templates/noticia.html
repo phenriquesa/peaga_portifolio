@@ -1,19 +1,34 @@
 {% extends 'base.html' %}
 
 {% block title %}Notícia{% endblock %}
-
+{% block content %}
 {% block header %}
-<h1>Notícia</h1>
+<div class="text-center py-4">
+    <h1>Notícia</h1>
+    <p class="lead">Fique por dentro das últimas atualizações e informações relevantes.</p>
+</div>
 {% endblock %}
 
-{% block content %}
-<div class="container">
-    <h1 class="mt-5">{{ noticia.title }}</h1>
+
+<div class="container mt-5">
+    <h1 class="mt-4">{{ noticia.title }}</h1>
+    
+    {% if noticia.image %}
+    <img src="{{ noticia.image }}" alt="{{ noticia.title }}" class="img-fluid mb-4" style="border-radius: 8px;">
+    {% endif %}
+    
     <div class="mt-4 mb-3">
         <p class="blockquote text-left">
             {{ noticia.content|replace('. ', '.<br>')|safe }}
         </p>
-        <small class="text-muted">Postado: {{ noticia.published }}</small>
+        <footer class="blockquote-footer">
+            <small class="text-muted">Postado em: {{ noticia.published }}</small>
+        </footer>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="/" class="btn btn-primary">Voltar para Home</a>
+        <a href="/noticias" class="btn btn-secondary">Ver Todas as Notícias</a>
     </div>
 </div>
 {% endblock %}

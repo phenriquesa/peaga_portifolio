@@ -3,34 +3,40 @@
 {% block title %}Gestão Financeira{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1>Gestão Financeira</h1>
+<div class="container-sm mt-5">
+    <h1 class="text-center mb-4">Gestão Financeira</h1>
 
     <!-- Formulário para registrar o salário -->
-    <form method="post" class="mb-4">
+    <form method="post" class="mb-4 border p-3 rounded shadow mx-auto" style="max-width: 500px;">
+        <h2 class="h5 mb-3">Registrar Salário</h2>
         <div class="mb-3">
-            <label for="salary" class="form-label">Salário</label>
-            <input type="number" class="form-control" id="salary" name="salary" step="0.01" value="{{ salario }}">
+            <label for="salary" class="form-label">Salário:</label>
+            <input type="text" class="form-control form-control-sm" id="salary" name="salary" required
+                placeholder="Insira seu salário" value="R$ {{ salario | round(2) | replace('.', ',') }}">
         </div>
-        <button type="submit" class="btn btn-primary">Registrar Salário</button>
+        <button type="submit" class="btn btn-primary btn-sm">Registrar Salário</button>
     </form>
 
     <!-- Formulário para registrar uma despesa -->
-    <form method="post" class="mb-4">
+    <form method="post" class="mb-4 border p-3 rounded shadow mx-auto" style="max-width: 500px;">
+        <h2 class="h5 mb-3">Registrar Despesa</h2>
         <div class="mb-3">
-            <label for="despesa" class="form-label">Despesa</label>
-            <input type="text" class="form-control" id="despesa" name="despesa" required>
+            <label for="despesa" class="form-label">Despesa:</label>
+            <input type="text" class="form-control form-control-sm" id="despesa" name="despesa" required
+                placeholder="Nome da despesa">
         </div>
         <div class="mb-3">
-            <label for="valor" class="form-label">Valor</label>
-            <input type="number" class="form-control" id="valor" name="valor" step="0.01" required>
+            <label for="valor" class="form-label">Valor:</label>
+            <input type="text" class="form-control form-control-sm" id="valor" name="valor" required
+                placeholder="Insira o valor da despesa" onblur="formatarValor(this)">
         </div>
-        <button type="submit" class="btn btn-primary">Registrar Despesa</button>
+        <button type="submit" class="btn btn-primary btn-sm">Registrar Despesa</button>
     </form>
 
+    <!-- Mensagens de sucesso ou erro -->
     {% with messages = get_flashed_messages() %}
     {% if messages %}
-    <div class="alert alert-success mt-3">
+    <div class="alert alert-success mt-3 mx-auto" style="max-width: 500px;">
         {% for message in messages %}
         {{ message }}
         {% endfor %}
@@ -38,21 +44,51 @@
     {% endif %}
     {% endwith %}
 
-    <h2>Despesas</h2>
-    <ul class="list-group mt-3">
+    <h2 class="text-center border p-3 rounded shadow mx-auto" style="max-width: 500px;">Despesas Registradas</h2>
+    <ul class="list-group mt-3 mb-4 mx-auto" style="max-width: 500px;">
         {% for despesa in despesas %}
         <li class="list-group-item d-flex justify-content-between align-items-center">
-            {{ despesa.despesa }}: R$ {{ despesa.valor }}
-            <form method="post" class="ms-2">
-                <button type="submit" name="delete_expense" value="{{ despesa.despesa }}" class="btn btn-danger btn-sm">Excluir</button>
+            <span>{{ despesa.despesa }}: R$ {{ despesa.valor | round(2) | replace('.', ',') }}</span>
+            <form method="post" class="ms-2" onsubmit="return confirm('Tem certeza que deseja excluir esta despesa?');">
+                <button type="submit" name="delete_expense" value="{{ despesa.despesa }}"
+                    class="btn btn-danger btn-sm">Excluir</button>
             </form>
         </li>
         {% endfor %}
     </ul>
 
-    <h3>Total das Despesas: R$ {{ total_despesas }}</h3>
-    <h3>Saldo: R$ {{ saldo }}</h3>
+    <div class="mb-4 border p-4 rounded shadow mx-auto" style="max-width: 500px; background-color: #f8f9fa;">
+        <h3 class="text-center mb-3" style="font-family: 'Arial', sans-serif; color: #343a40;">
+            Total das Despesas:
+            <span class="text-danger" style="font-weight: bold;">R$ {{ total_despesas | round(2) | replace('.', ',')
+                }}</span>
+        </h3>
+        <h3 class="text-center mb-4" style="font-family: 'Arial', sans-serif; color: #343a40;">
+            Saldo:
+            <span class="text-info" style="font-weight: bold;">R$ {{ saldo | round(2) | replace('.', ',') }}</span>
+        </h3>
+        <div class="text-center">
+            <a href="{{ url_for('download_expenses') }}" class="btn btn-primary mt-3"
+                style="background-color: #007bff; border: none;">
+                <i class="fas fa-download"></i> Baixar CSV
+            </a>
+        </div>
+    </div>
 
-    <a href="{{ url_for('download_expenses') }}" class="btn btn-secondary mt-4">Baixar CSV</a>
-</div>
-{% endblock %}
+
+    <script>
+        function formatarValor(input) {
+            // Remove todos os caracteres que não são dígitos ou vírgulas
+            let valor = input.value.replace(/[^0-9,]/g, '').replace(',', '.').trim();
+            if (valor) {
+                const numValor = parseFloat(valor);
+                if (!isNaN(numValor)) {
+                    // Formata o número para duas casas decimais
+                    input.value = 'R$ ' + numValor.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                }
+            } else {
+                input.value = '';
+            }
+        }
+    </script>
+    {% endblock %}

@@ -1,22 +1,33 @@
 {% extends 'base.html' %}
 
 {% block title %}Notícias{% endblock %}
-
+{% block content %}
 {% block header %}
-<h1>Notícias</h1>
+<div class="text-center py-4">
+    <h1 class="display-4">Últimas Notícias</h1>
+    <p class="lead">Fique por dentro das informações mais relevantes e atualizações.</p>
+</div>
 {% endblock %}
 
-{% block content %}
-<div class="container">
-    <h1 class="mt-5 text-center">Notícias</h1>
-    <ul class="list-group mt-4">
+
+<div class="container mt-5">
+    <div class="row">
         {% for noticia in noticias %}
-        <li class="list-group-item mb-3">
-            <h2 class="h5"><a href="{{ url_for('exibir_noticia', noticia_tag=noticia.title) }}" class="text-dark">{{ noticia.title }}</a></h2>
-            <p class="blockquote text-left">{{ noticia.content|truncate(250) }}</p>
-            <small class="text-muted">Postado: {{ noticia.published }}</small>
-        </li>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                {% if noticia.image %}
+                <img src="{{ noticia.image }}" class="card-img-top" alt="{{ noticia.title }}" style="border-top-left-radius: 0.25rem; border-top-right-radius: 0.25rem;">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{{ url_for('exibir_noticia', noticia_tag=noticia.title) }}" class="text-dark">{{ noticia.title }}</a>
+                    </h5>
+                    <p class="card-text">{{ noticia.content|truncate(150) }}</p>
+                    <small class="text-muted">Postado em: {{ noticia.published }}</small>
+                </div>
+            </div>
+        </div>
         {% endfor %}
-    </ul>
+    </div>
 </div>
 {% endblock %}

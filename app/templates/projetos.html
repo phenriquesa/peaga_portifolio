@@ -1,46 +1,65 @@
 {% extends 'base.html' %}
 
 {% block title %}Projetos{% endblock %}
-
+{% block content %}
 {% block header %}
-<h1>Projetos</h1>
+<div class="text-center py-4">
+    <h1 class="display-4">Projetos</h1>
+    <p class="lead">Explore alguns vídeos e projetos mais recentes.</p>
+</div>
 {% endblock %}
 
-{% block content %}
-<div class="container">
-    <header class="mt-4 mb-5">
-        <h2>Videos</h2>
-        <div class="embed-responsive embed-responsive-16by9 mb-4">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/gNoTUQ1XtBk?si=HeDBbecSt-1Nbgsx"
-                    title="Música de Crime e Mistério | Trilha Sonora para Histórias Intrigantes" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </div>
-        <div class="embed-responsive embed-responsive-16by9 mb-4">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/EnKdSzZB_iU?si=nMaO-0W4fkVYdVhE"
-                    title="Música para Estudar | Inspiração e Beleza" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </div>
-        <div class="embed-responsive embed-responsive-16by9 mb-4">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/CuidORKv72Q?si=c2XI5-UBwHX6EFSF"
-                    title="Beleza e Inspiração: Mulheres Fortes e Determinadas" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+<div class="container mt-5">
+    <header class="mb-5">
+        <h2 class="text-center mb-4">Vídeos</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe width="560" height="315"
+                                src="https://www.youtube.com/embed/z3VQGXBTzic?si=4t-Un0PNE9ycz-X3"
+                                title="Viking Battle Music" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Viking Battle Music</h5>
+                        <p class="card-text">A Saga of Warriors | Intense Epic Viking Music for Battle & Honor</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe width="560" height="315"
+                                src="https://www.youtube.com/embed/CeOfIXm9eC4?si=cMN4MMUs-Nu2DDpf"
+                                title="1 Hora de Meditação Sombria no Subterrâneo" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">1 Hora de Meditação Sombria no Subterrâneo</h5>
+                        <p class="card-text">Sons Profundos para Relaxamento e Foco</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe width="560" height="315"
+                                src="https://www.youtube.com/embed/XjY0pRsjv6c?si=46RjqlaRFoc9mMuJ"
+                                title="Dark & Powerful Viking Music" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Dark & Powerful Viking Music</h5>
+                        <p class="card-text">Ancient Vikings Epic & Valhalla Cinematics</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
-    <section class="mt-4">
-        <h2>Cupons Gratuitos</h2>
-        <ul class="list-group">
-            {% for cupom in cupons %}
-            <li class="list-group-item">
-                <h3>{{ cupom.title }}</h3>
-                <p>{{ cupom.description }}</p>
-                <p>Código: <strong>{{ cupom.code }}</strong></p>
-                <p><a href="{{ cupom.link }}" target="_blank">Usar cupom</a></p>
-            </li>
-            {% endfor %}
-        </ul>
-    </section>
 </div>
 {% endblock %}

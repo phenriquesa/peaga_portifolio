@@ -3,33 +3,35 @@
 * {
     margin: 0;
     padding: 0;
-    border: 0;
+    box-sizing: border-box;
     font-family: 'Raleway', sans-serif;
 }
 
 body {
     background: #fff;
-    box-sizing: border-box;
     color: rgb(2, 157, 84);
-    font-family: 'Raleway', sans-serif;
 }
 
-/* CSS atualizado para navbar e layout */
 nav {
-    margin: 0;
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .navbar {
+    display: flex;
+    align-items: center;
     padding: 0.5rem 1rem;
 }
 
 .navbar-brand {
     display: flex;
     align-items: center;
+    font-weight: 600; /* Mais destaque para a marca */
 }
 
 .navbar-toggler {
     border: none;
+    background: none;
 }
 
 .navbar-toggler-icon {
@@ -49,296 +51,99 @@ nav {
 
 .navbar-nav .nav-link {
     padding: 0.5rem 0.75rem;
+    color: #000;
+    transition: color 0.3s, background-color 0.3s; /* Transição para fundo */
+    border-radius: 5px; /* Bordas levemente arredondadas */
+}
+
+.navbar-nav .nav-link:hover {
+    color: #fff; /* Cor do texto ao passar o mouse */
+    background-color: rgb(115, 211, 235); /* Cor de fundo ao passar o mouse */
 }
 
 .btn-outline-primary, .btn-outline-danger {
     margin-left: 0.5rem;
+    transition: background-color 0.3s, color 0.3s; /* Transições para melhor usabilidade */
 }
 
-/* Responsividade e ajustes adicionais */
+.btn-outline-primary:hover, .btn-outline-danger:hover {
+    background-color: rgb(2, 157, 84); /* Cor de fundo ao passar o mouse nos botões */
+    color: #fff; /* Cor do texto ao passar o mouse nos botões */
+}
+
+.btn {
+    border-radius: 20px; /* Arredondamento dos botões */
+}
+
+.border {
+    border: 1px solid #dee2e6;
+}
+
+.rounded {
+    border-radius: 0.5rem;
+}
+
+.shadow {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+
+/* Responsividade */
 @media (max-width: 767px) {
     .navbar-nav {
         flex-direction: column;
-        align-items: center;
-        margin-top: 1rem;
-        text-align: center;
+        align-items: flex-start; /* Alinha itens à esquerda */
+        padding: 0.5rem 0; /* Adiciona espaçamento interno */
     }
 
     .navbar-nav .nav-item {
         margin-left: 0;
-        margin-bottom: 0.5rem;
+        margin-top: 0.5rem;
+        width: 100%; /* Faz os itens ocuparem toda a largura */
+    }
+    
+    .navbar-nav .nav-link {
+        text-align: center; /* Centraliza os links */
+        width: 100%; /* Faz os links ocuparem toda a largura */
     }
 
-    .navbar-toggler {
-        margin-right: 1rem;
+    .container {
+        padding: 0 1rem; /* Adiciona padding nas laterais */
     }
-}
-
-.post .about {
-    color: slategray;
-    font-style: italic;
-}
-
-#logo {
-    margin-bottom: 5px;
-    margin-top: 0px;
-    width: 375px;
-    height: 375px;
-    color: #FFF;
-    border-radius: 50%;
-}
-
-h2, h3, p {
-    text-align: center;
-    margin-top: 30px;
-    margin-bottom: 20px;
-}
-
-h2 {
-    font-weight: 600;
-    font-size: 18px;
-}
-
-h3, p {
-    font-weight: 200;
-    font-size: 18px;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-    margin-bottom: 4px;
-}
-
-a:hover {
-    color: #000000;
-    text-decoration: underline;
-}
-
-.container {
-    width: 100%;
-    max-width: 940px;
-    margin: 0 auto;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-.form-control {
-    max-width: 100%;
-    font-size: 18px;
-    margin-top: 10px;
-    background: none;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-/* Estilo para o botão de fechar da mensagem */
-.btn-close {
-    background: none;
-    border: none;
-    color: #333; /* Cor do ícone do botão */
-    font-size: 1.25rem;
-    opacity: 0.5;
-    cursor: pointer;
-}
-
-.btn-close:hover {
-    opacity: 0.75;
-}
-
-.alert {
-    position: relative; /* Garantir que o botão de fechar esteja posicionado corretamente */
-    padding-right: 3rem; /* Espaço para o botão de fechar */
-}
-
-.alert .btn-close {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    z-index: 1; /* Garantir que o botão de fechar fique sobre a mensagem */
-}
-
-
-#info {
-    position: absolute;
-    box-sizing: border-box;
-    padding: 0 20px;
-    color: #fff;
-}
-
-#txt-info {
-    margin-top: 20px;
-    margin-bottom: 50px;
-    text-align: center;
-    font-size: 16px;
-}
-
-.lds-roller {
-    width: 60px;
-    height: 60px;
-    position: absolute;
-    margin-top: 80px;
-    margin-left: -8px;
-}
-
-.lds-roller div {
-    animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    transform-origin: 32px 32px;
-}
-
-.lds-roller div:after {
-    content: " ";
-    display: block;
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #fff;
-    margin: -3px 0 0 -3px;
-}
-
-.lds-roller div:nth-child(1) {
-    animation-delay: -0.036s;
-}
-.lds-roller div:nth-child(1):after {
-    top: 50px;
-    left: 50px;
-}
-.lds-roller div:nth-child(2) {
-    animation-delay: -0.072s;
-}
-.lds-roller div:nth-child(2):after {
-    top: 54px;
-    left: 45px;
-}
-.lds-roller div:nth-child(3) {
-    animation-delay: -0.108s;
-}
-.lds-roller div:nth-child(3):after {
-    top: 57px;
-    left: 39px;
-}
-.lds-roller div:nth-child(4) {
-    animation-delay: -0.144s;
-}
-.lds-roller div:nth-child(4):after {
-    top: 58px;
-    left: 32px;
-}
-.lds-roller div:nth-child(5) {
-    animation-delay: -0.18s;
-}
-.lds-roller div:nth-child(5):after {
-    top: 57px;
-    left: 25px;
-}
-.lds-roller div:nth-child(6) {
-    animation-delay: -0.216s;
-}
-.lds-roller div:nth-child(6):after {
-    top: 54px;
-    left: 19px;
-}
-.lds-roller div:nth-child(7) {
-    animation-delay: -0.252s;
-}
-.lds-roller div:nth-child(7):after {
-    top: 50px;
-    left: 14px;
-}
-.lds-roller div:nth-child(8) {
-    animation-delay: -0.288s;
-}
-.lds-roller div:nth-child(8):after {
-    top: 45px;
-    left: 10px;
-}
-
-@keyframes lds-roller {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
 }
 
 footer {
-    bottom: 0;
-    width: 100%;
-    height: 45px;
     text-align: center;
-    line-height: 45px;
-    background-color: #f8f9fa;
-    border-top: 1px solid #e9ecef;
-    color: #6c757d;
+    padding: 20px 0;
+    background-color: #f1f1f1;
+    margin-top: 20px;
 }
 
-button {
-    cursor: pointer;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 16px;
-    background-color: #28a745;
-    color: #fff;
-    transition: background-color 0.3s ease;
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px; /* Adiciona padding lateral */
 }
 
-button:hover {
-    background-color: #218838;
+/* Estilos adicionais */
+footer p {
+    color: rgb(250, 142, 99); /* Cor do texto do rodapé */
 }
 
-button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+.navbar .nav-link {
+    font-weight: 500; /* Peso da fonte dos links */
 }
 
-.form-container {
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.navbar .nav-link.active {
+    font-weight: bold; /* Destaque para o link ativo */
+    color: rgb(47, 160, 235); /* Cor do link ativo */
 }
 
-.toggle-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-}
-
-.toggle-panel {
-    flex: 1;
-    text-align: center;
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin: 10px;
-}
-
-.toggle-panel h1 {
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-
-.toggle-panel p {
-    font-size: 16px;
-    margin-bottom: 20px;
-}
-
-.toggle-panel button {
-    background-color: #007bff;
-    color: #fff;
-}
-
-.toggle-panel button:hover {
-    background-color: #0056b3;
-}
