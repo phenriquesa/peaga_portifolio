@@ -79,8 +79,7 @@ py-site/
 ├── venv/
 ├── .gitignore
 ├── requirements.txt
-├── config.py
-├── run.py
+├── setup.py
 └── README.md
 ```
 
