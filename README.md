@@ -16,7 +16,12 @@
 
 ## Instalação
 
+Tenho um demonstrativo ativo no PythonAnyWhere, porém com funcionalidades limitadas:
+
+https://phenriquesa.pythonanywhere.com/
+
 Siga as etapas abaixo para configurar a aplicação localmente:
+
 
 1. **Clone o repositório**:
 
