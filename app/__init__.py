@@ -307,11 +307,8 @@ def create_app(test_config=None):
             return render_template("moedas.html", rates=rates)
 
     # PRAIAS:
-    # Função para normalizar e criar slug
     def criar_slug(texto):
-        # Remove acentuação e caracteres especiais
         texto = unicodedata.normalize("NFKD", texto).encode("ASCII", "ignore").decode("utf-8")
-        # Converte para minúsculas e substitui espaços por hífens
         return texto.lower().replace(" ", "-")
 
     @app.route("/praias")
@@ -435,7 +432,7 @@ def create_app(test_config=None):
                 reader = csv.DictReader(file)
                 return [
                     {**row, "valor": float(row["valor"])} for row in reader
-                ]  # Converter valor para float
+                ]
         return []
 
     def save_expense(user_id, despesa, valor):
@@ -474,7 +471,7 @@ def create_app(test_config=None):
                 if salary_row:
                     return float(
                         salary_row[0]["salary"]
-                    )  # Garantir que o salário é float
+                    )  
         return 0.0
 
     def save_salary(user_id, salary):
